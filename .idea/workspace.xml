@@ -30,6 +30,8 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SET_USER_NAME_GLOBALLY" value="false" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -54,7 +56,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -78,7 +80,7 @@
       <workItem from="1591292828201" duration="1318000" />
       <workItem from="1591314335514" duration="1137000" />
       <workItem from="1591315597151" duration="44000" />
-      <workItem from="1591315753162" duration="2566000" />
+      <workItem from="1591315753162" duration="2895000" />
     </task>
     <servers />
   </component>
@@ -127,15 +129,27 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit" />
+  </component>
   <component name="WindowStateProjectService">
+    <state x="308" y="0" key="CommitChangelistDialog2" timestamp="1591318684255">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="308" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1591318684255" />
     <state x="2106" y="-331" key="FileChooserDialogImpl" timestamp="1590617992584">
       <screen x="1366" y="-610" width="1920" height="1050" />
     </state>
     <state x="2106" y="-331" key="FileChooserDialogImpl/0.0.1366.738/1366.-610.1920.1050@1366.-610.1920.1050" timestamp="1590617992584" />
-    <state x="368" y="17" key="SettingsEditor" timestamp="1591314899609">
+    <state x="368" y="17" key="SettingsEditor" timestamp="1591318639411">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="368" y="17" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1591314899609" />
+    <state x="368" y="17" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1591318639411" />
     <state x="1947" y="-412" key="SettingsEditor/0.0.1366.738/1366.-610.1920.1050@1366.-610.1920.1050" timestamp="1590618813087" />
+    <state x="492" y="277" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1591318562496">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="492" y="277" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1591318562496" />
   </component>
 </project>
