@@ -11,6 +11,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5b71ea87-7147-47bc-99aa-1f708ed75143" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/sr/unasat/jdbc/crud/entities/Users.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sr/unasat/jdbc/crud/repositories/UsersRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,6 +76,9 @@
       <workItem from="1590842309932" duration="51000" />
       <workItem from="1590849761007" duration="580000" />
       <workItem from="1591292828201" duration="1318000" />
+      <workItem from="1591314335514" duration="1137000" />
+      <workItem from="1591315597151" duration="44000" />
+      <workItem from="1591315753162" duration="2566000" />
     </task>
     <servers />
   </component>
@@ -126,9 +132,10 @@
       <screen x="1366" y="-610" width="1920" height="1050" />
     </state>
     <state x="2106" y="-331" key="FileChooserDialogImpl/0.0.1366.738/1366.-610.1920.1050@1366.-610.1920.1050" timestamp="1590617992584" />
-    <state x="1947" y="-412" key="SettingsEditor" timestamp="1590618813087">
-      <screen x="1366" y="-610" width="1920" height="1050" />
+    <state x="368" y="17" key="SettingsEditor" timestamp="1591314899609">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
+    <state x="368" y="17" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1591314899609" />
     <state x="1947" y="-412" key="SettingsEditor/0.0.1366.738/1366.-610.1920.1050@1366.-610.1920.1050" timestamp="1590618813087" />
   </component>
 </project>
