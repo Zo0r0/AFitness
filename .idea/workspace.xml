@@ -10,7 +10,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b71ea87-7147-47bc-99aa-1f708ed75143" name="Default Changelist" comment="" />
+    <list default="true" id="5b71ea87-7147-47bc-99aa-1f708ed75143" name="Default Changelist" comment="role tabel" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,16 +20,18 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="SYNC" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="$USER_HOME$/Tools/apache-maven-3.6.3" />
+        <option name="mavenHome" value="$PROJECT_DIR$/../../../Tools/apache-maven-3.6.3" />
       </MavenGeneralSettings>
     </option>
   </component>
@@ -40,16 +42,25 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="ToolWindowMessages.ShowToolbar" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/target/classes" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.completion" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -71,8 +82,23 @@
       <workItem from="1590842309932" duration="51000" />
       <workItem from="1590849761007" duration="580000" />
       <workItem from="1591292828201" duration="1318000" />
-      <workItem from="1591318770970" duration="21000" />
+      <workItem from="1591313944089" duration="15797000" />
     </task>
+    <task id="LOCAL-00001" summary="role tabel">
+      <created>1591318926865</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1591318926865</updated>
+    </task>
+    <task id="LOCAL-00002" summary="role tabel">
+      <created>1591399870578</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1591399870578</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -120,14 +146,63 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="role tabel" />
+    <option name="LAST_COMMIT_MESSAGE" value="role tabel" />
+  </component>
   <component name="WindowStateProjectService">
+    <state x="395" y="91" key="#Inspections" timestamp="1591314559050">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="395" y="91" key="#Inspections/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1591314559050" />
+    <state x="249" y="0" key="#Project_Structure" timestamp="1591314119873">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="249" y="0" key="#Project_Structure/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1591314119873" />
+    <state x="499" y="167" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog" timestamp="1591320519947">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="499" y="167" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1591320519947" />
+    <state x="538" y="214" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1591382865059">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="538" y="214" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1591382865059" />
+    <state x="574" y="119" key="#com.intellij.ide.util.MemberChooser" timestamp="1591317960388">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="574" y="119" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1591317960388" />
+    <state x="551" y="307" width="433" height="216" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1591381584852">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="551" y="307" width="433" height="216" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1591381584852" />
     <state x="2106" y="-331" key="FileChooserDialogImpl" timestamp="1590617992584">
       <screen x="1366" y="-610" width="1920" height="1050" />
     </state>
     <state x="2106" y="-331" key="FileChooserDialogImpl/0.0.1366.738/1366.-610.1920.1050@1366.-610.1920.1050" timestamp="1590617992584" />
-    <state x="1947" y="-412" key="SettingsEditor" timestamp="1590618813087">
-      <screen x="1366" y="-610" width="1920" height="1050" />
+    <state x="465" y="115" key="SettingsEditor" timestamp="1591314633363">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="1947" y="-412" key="SettingsEditor/0.0.1366.738/1366.-610.1920.1050@1366.-610.1920.1050" timestamp="1590618813087" />
+    <state x="465" y="115" key="SettingsEditor/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1591314633363" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1591399875764">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1591399875764" />
+    <state x="372" y="23" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1591322879984">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="372" y="23" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1591322879984" />
+    <state x="578" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1591314765972">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="578" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1591314765972" />
+    <state x="499" y="163" key="extract.method.dialog" timestamp="1591316977079">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="499" y="163" key="extract.method.dialog/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1591316977079" />
+    <state x="425" y="187" key="run.anything.popup" timestamp="1591321402489">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="425" y="187" key="run.anything.popup/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1591321402489" />
   </component>
 </project>
