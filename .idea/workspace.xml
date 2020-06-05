@@ -11,9 +11,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5b71ea87-7147-47bc-99aa-1f708ed75143" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/sr/unasat/jdbc/crud/entities/Users.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sr/unasat/jdbc/crud/repositories/UsersRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -80,8 +77,24 @@
       <workItem from="1591292828201" duration="1318000" />
       <workItem from="1591314335514" duration="1137000" />
       <workItem from="1591315597151" duration="44000" />
-      <workItem from="1591315753162" duration="2895000" />
+      <workItem from="1591315753162" duration="3151000" />
+      <workItem from="1591318993328" duration="108000" />
     </task>
+    <task id="LOCAL-00001" summary="commit">
+      <created>1591318687513</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1591318687515</updated>
+    </task>
+    <task id="LOCAL-00002" summary="added Users">
+      <created>1591318885734</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1591318885734</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -131,13 +144,14 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit" />
+    <MESSAGE value="added Users" />
+    <option name="LAST_COMMIT_MESSAGE" value="added Users" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="308" y="0" key="CommitChangelistDialog2" timestamp="1591318684255">
+    <state x="308" y="0" key="CommitChangelistDialog2" timestamp="1591318883935">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="308" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1591318684255" />
+    <state x="308" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1591318883935" />
     <state x="2106" y="-331" key="FileChooserDialogImpl" timestamp="1590617992584">
       <screen x="1366" y="-610" width="1920" height="1050" />
     </state>
