@@ -10,9 +10,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b71ea87-7147-47bc-99aa-1f708ed75143" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="5b71ea87-7147-47bc-99aa-1f708ed75143" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,7 +29,7 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="$PROJECT_DIR$/../../../Tools/apache-maven-3.6.3" />
+        <option name="mavenHome" value="$USER_HOME$/Tools/apache-maven-3.6.3" />
       </MavenGeneralSettings>
     </option>
   </component>
@@ -73,6 +71,7 @@
       <workItem from="1590842309932" duration="51000" />
       <workItem from="1590849761007" duration="580000" />
       <workItem from="1591292828201" duration="1318000" />
+      <workItem from="1591318770970" duration="21000" />
     </task>
     <servers />
   </component>
