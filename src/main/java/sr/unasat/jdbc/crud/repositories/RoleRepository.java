@@ -60,6 +60,37 @@ public class RoleRepository<result> {
 
         }
         return roleList;
+        public Client getClientById(int id) {
+            Client client = null;
+            PreparedStatement stmt = null;
+            try {
+                String sql = "select * from clients where id = ?";
+                stmt = connection.prepareStatement(sql);
+                stmt.setInt(1, id);
+                ResultSet rs = stmt.executeQuery(sql);
+                while (rs.next()) {
+                    int client_id = rs.getInt("id");
+                    String name = rs.getString("client_name");
+                    String surname = rs.getString("client_surname");
+                    String phonenumber = rs.getString("client_phonenumber");
+                    Date date_of_birth = rs.getDate("client_date_of_birth");
+                    boolean is_active = rs.getBoolean("client_is_active");
+                    int membership_id = rs.getInt("client_memebership_id");
+                    Date membership_expiration = rs.getDate("client_membership_expiration");
+                    int user_id = rs.getInt("user_id");
+                    client = new Client(client_id, name, surname, phonenumber, date_of_birth, is_active, membership_id, membership_expiration, user_id);
+                }
+                rs.close();
+            } catch (SQLException e) {
+                System.out.println("An error has occurred ");
+            }
+            return client;
+        }
+
+
+
+
+
 
     }
     public int insertOneRecord(Role role){
@@ -73,6 +104,12 @@ public class RoleRepository<result> {
         } catch (SQLException) {
 
         } return result;
+
+
+
+
+
+
 
     }
     public int deleteOneRecord(Role role) {
