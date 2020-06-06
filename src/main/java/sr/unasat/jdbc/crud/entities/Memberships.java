@@ -34,13 +34,4 @@ public class Memberships {
     public void setPrice(String price) {
         this.membership_price = price;
     }
-
-    @Override
-    public String toString() {
-        return "Persoon{" +
-                "id=" + membership_id +
-                ", period='" + membership_period +
-                ", price='" + membership_price + '\'' +
-                '}';
-    }
 }
