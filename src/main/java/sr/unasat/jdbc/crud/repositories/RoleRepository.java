@@ -1,17 +1,18 @@
 package sr.unasat.jdbc.crud.repositories;
 
-import com.sun.tools.javac.util.List;
 import sr.unasat.jdbc.crud.entities.Role;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
-import static sr.unasat.jdbc.crud.entities.Role.getaccess_level;
-
-public class RoleRepository<result> {
+public abstract class RoleRepository <result> {
     private Connection connection;
     private String role_name;
     private String access_level;
+
+    private  String abstract void getaccess_level();
+
 
     public RoleRepository(){
         try {
@@ -21,7 +22,7 @@ public class RoleRepository<result> {
 
             String URL = "jdbc:mysql://localhost/AFitness";
             String USER = "root";
-            String PASS = "";
+            String PASS = "root";
             connection = DriverManager.getConnection(URL, USER, PASS);
             System.out.println(connection);
         } catch (ClassNotFoundException ex) {
@@ -31,9 +32,8 @@ public class RoleRepository<result> {
             e.printStackTrace();
         }
     }
-    public List <Role> findAllRecords(){
-        List <Role> roleList;
-        roleList = new List <Role>();
+    public List<Role> findAllRecords (){
+       java.util.List<Role> roleList = new ArrayList<Role>();
         Statement stmt = null;
 
         try{
@@ -54,7 +54,7 @@ public class RoleRepository<result> {
 
                 roleList.add(new Role (role_id,name,access_level));
                 roleList.add(new Role(rs.getInt("role_id"), rs.getString("role_name"),
-                        rs.getString("access-level"));
+                        rs.getString("access-level")));
 
             }
             rs.close();
@@ -72,7 +72,9 @@ public class RoleRepository<result> {
         int result = 0;
         try {String sql = "INSERT INTO roles (role_name,access_level)  values (?)";
             stmt= connection.prepareStatement(sql);
-            stmt.setString  (Role.getName(),Role.getaccess_level() );
+            stmt.setString  (1,Role.getName() );
+            stmt.setString (Role.getaccess_level() );
+
             result=stmt.executeUpdate("resultset:" + result);
 
 
@@ -111,11 +113,10 @@ public class RoleRepository<result> {
         PreparedStatement stmt = null;
         int result = 0;
         try {
-            String sql = "update roles  set role_id = ?, role_name= ? , = ?";
+            String sql = "update roles  set role_id = ?, role_name= ? ,access_level = ?";
             stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, Role.getrole_id());
-            stmt.setString(2, Role.getName());
-            stmt.setString(3, getaccess_level());
+            stmt.setInt(1,role.get);
+            stmt.setString( Role.getName(), Role.getAccess_level());
             result = stmt.executeUpdate();
             System.out.println("resultset: " + result);
 
@@ -125,7 +126,6 @@ public class RoleRepository<result> {
         }
         return result;
     }
-
 
 
 
@@ -149,4 +149,7 @@ public class RoleRepository<result> {
         return result;
     }
 
+    public void getString() {
+        return String;
+    }
 }
