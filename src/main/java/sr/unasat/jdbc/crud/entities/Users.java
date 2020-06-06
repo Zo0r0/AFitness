@@ -14,7 +14,11 @@ public class Users {
         this.roll_id = roll_id;
 
     }
-    public Users (int user_id) {this.user_id = user_id; }
+
+    public Users (int user_id) {
+        this.user_id = user_id;
+    }
+
     public Users (String username) {this.username = username; }
     public Users (String password) {this.password = password; }
     public Users (int roll_id) {this.roll_id = roll_id; }
