@@ -11,18 +11,6 @@ public class Memberships {
         this.membership_price = price;
     }
 
-   /* public Memberships(int id){
-        this.membership_id = id;
-    }
-
-    public Memberships(String period){
-        this.membership_period = period;
-    }
-
-    public Memberships(String price){
-        this.membership_period = price;
-    }*/
-
     public int getId() {
         return membership_id;
     }
