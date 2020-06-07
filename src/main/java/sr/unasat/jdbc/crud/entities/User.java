@@ -2,16 +2,16 @@ package sr.unasat.jdbc.crud.entities;
 
 public class User {
 
-    private int user_id;
-    private String username;
-    private String password;
-    private int role_id;
+    public int user_id;
+    public String username;
+    public String password;
+    public User user;
 
     public User(int user_id , String username , String password , int role_id){
         this.user_id = user_id;
         this.username = username;
         this.password = password;
-        this.role_id = role_id;
+        this.user = user;
 
     }
 
@@ -23,23 +23,23 @@ public class User {
         this.username = username;
     }
 
-    public void setpassword (String password) {
+    public void setpassword(String password) {
         this.password = password;
     }
 
-    public void setrole_id(int roll_id) {
-        this.role_id = role_id;
+    public void setuser(User user) {
+        this.user = user;
     }
 
     public int getUser_id() { return user_id; }
     public String getUsername() { return username; }
     public String getPassword() { return password; }
-    public int getRole_id() { return role_id; }
+    public User getUser() { return user; }
 
     public void setUser_id(int user_id) { this.user_id = user_id; }
     public void setUsername(String username) { this.username = username; }
     public void setPassword(String password) { this.password = password; }
-    public void setRole_id(int role_id) { this.role_id = role_id; }
+    public void setUser(User user) { this.user = user; }
 
     /*@Override
     public String toString() {
