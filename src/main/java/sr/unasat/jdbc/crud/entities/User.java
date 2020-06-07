@@ -15,22 +15,6 @@ public class User {
 
     }
 
-    public void setuser_Id(int user_id) {
-        this.user_id = user_id;
-    }
-
-    public void setusername(String username) {
-        this.username = username;
-    }
-
-    public void setpassword(String password) {
-        this.password = password;
-    }
-
-    public void setuser(User user) {
-        this.user = user;
-    }
-
     public int getUser_id() { return user_id; }
     public String getUsername() { return username; }
     public String getPassword() { return password; }
