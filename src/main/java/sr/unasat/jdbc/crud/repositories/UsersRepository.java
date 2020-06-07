@@ -1,7 +1,5 @@
 package sr.unasat.jdbc.crud.repositories;
 
-import sr.unasat.jdbc.crud.entities.Memberships;
-import sr.unasat.jdbc.crud.entities.Persoon;
 import sr.unasat.jdbc.crud.entities.Users;
 
 import java.sql.*;
