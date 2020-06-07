@@ -5,7 +5,7 @@ public class Memberships {
     public String membership_period;
     public String membership_price;
 
-    public Memberships(int id, String period, String price){
+    public Memberships(int id, String period, String price, boolean is_active){
         this.membership_id = id;
         this.membership_period = period;
         this.membership_price = price;
