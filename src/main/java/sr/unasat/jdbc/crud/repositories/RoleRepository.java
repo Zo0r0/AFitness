@@ -8,7 +8,7 @@ import java.util.List;
 
 import static sr.unasat.jdbc.crud.entities.Role.*;
 
-public abstract class RoleRepository <result> {
+public abstract class RoleRepository {
     private Connection connection;
     private String role_name;
     public String access_level;
@@ -16,6 +16,7 @@ public abstract class RoleRepository <result> {
 
 
     public RoleRepository(){
+        
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("De driver is geregistreerd!");
@@ -68,20 +69,27 @@ public abstract class RoleRepository <result> {
         return roleList;
 
     }
+    
+    
+    
     public int insertOneRecord(Role role){
         PreparedStatement stmt= null;
         int result = 0;
-        try {String sql = "INSERT INTO roles (role_name,access_level)  values (?)";
-            stmt= connection.prepareStatement(sql);
-            stmt.setString  ( getName(),getAccess_level());
+        try {
+            String sql = "INSERT INTO roles (role_name,access_level)  values (?)";
+            stmt = connection.prepareStatement(sql);
+            stmt.setString(1 , getName());
+            stmt.setString(2,getAccess_level());
 
-            result=stmt.executeUpdate("resultset:" + result);
+            result = stmt.executeUpdate("resultset:" + result);
 
-
-        } catch (SQLException throwables) {
+        }
+        catch (SQLException throwables) {
             throwables.printStackTrace();
 
         } return result;
+        
+        
 
     }
     public Role getClientById(int id) {
@@ -115,8 +123,8 @@ public abstract class RoleRepository <result> {
         try {
             String sql = "update roles  set role_id = ?, role_name= ? ,access_level = ?";
             stmt = connection.prepareStatement(sql);
-            stmt.setInt(1,role.getName());
-            stmt.setString( getName(), Role.getAccess_level());
+            stmt.setString(1,Role.getName());
+            stmt.setString( 2, Role.getAccess_level());
             result = stmt.executeUpdate();
             System.out.println("resultset: " + result);
 
@@ -136,7 +144,8 @@ public abstract class RoleRepository <result> {
         try {
             String sql = " DELETE FROM roles WHERE role_id=?";
             stmt = connection.prepareStatement(sql);
-            stmt.setString(getName(), getAccess_level());
+            stmt.setString(1, getName());
+            stmt.setString(2, getAccess_level());
 
             result = stmt.executeUpdate();
             System.out.println("deleted:" + getName());
