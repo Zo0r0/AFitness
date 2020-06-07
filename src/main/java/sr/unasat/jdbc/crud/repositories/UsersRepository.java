@@ -1,5 +1,6 @@
 package sr.unasat.jdbc.crud.repositories;
 
+import sr.unasat.jdbc.crud.entities.Membership;
 import sr.unasat.jdbc.crud.entities.User;
 
 import java.sql.*;
@@ -52,7 +53,29 @@ public class UsersRepository {
         return userList;
     }
 
-//    Note: FindByID nog erbij
+    public User findUserById(int id) {
+        User user = null;
+        PreparedStatement stmt = null;
+        try {
+            String sql = "select * from user where id = ?";
+            stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                int user_id = rs.getInt("id");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                int role_id = rs.getInt("role_id");
+                user = new User(user_id, username, password, role_id);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println("An error has occurred ");
+        }
+        return user;
+    }
+
+
 
     public int insertOneRecord(User user) {
         PreparedStatement stmt = null;
