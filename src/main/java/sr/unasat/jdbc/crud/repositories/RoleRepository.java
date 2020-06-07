@@ -106,7 +106,7 @@ public class RoleRepository {
                   role_id = rs.getInt("role_id");
                 String role_name = rs.getString("role_name");
                 String access_level = rs.getString("access_level");
-//                role = new Role(role_id, role_name, access_level );
+                role = new Role(role_id, role_name, access_level );
             }
             rs.close();
 
