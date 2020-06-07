@@ -6,12 +6,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static sr.unasat.jdbc.crud.entities.Role.*;
+
 public abstract class RoleRepository <result> {
     private Connection connection;
     private String role_name;
-    private String access_level;
+    public String access_level;
 
-    private  String abstract void getaccess_level();
 
 
     public RoleRepository(){
@@ -72,8 +73,7 @@ public abstract class RoleRepository <result> {
         int result = 0;
         try {String sql = "INSERT INTO roles (role_name,access_level)  values (?)";
             stmt= connection.prepareStatement(sql);
-            stmt.setString  (1,Role.getName() );
-            stmt.setString (Role.getaccess_level() );
+            stmt.setString  ( getName(),getAccess_level());
 
             result=stmt.executeUpdate("resultset:" + result);
 
@@ -115,8 +115,8 @@ public abstract class RoleRepository <result> {
         try {
             String sql = "update roles  set role_id = ?, role_name= ? ,access_level = ?";
             stmt = connection.prepareStatement(sql);
-            stmt.setInt(1,role.get);
-            stmt.setString( Role.getName(), Role.getAccess_level());
+            stmt.setInt(1,role.getName());
+            stmt.setString( getName(), Role.getAccess_level());
             result = stmt.executeUpdate();
             System.out.println("resultset: " + result);
 
@@ -130,26 +130,24 @@ public abstract class RoleRepository <result> {
 
 
 
-    public int deleteOneRecord(Role role) {
+    public int deleteOneRecord (Role role) {
         PreparedStatement stmt = null;
         int result = 0;
         try {
             String sql = " DELETE FROM roles WHERE role_id=?";
             stmt = connection.prepareStatement(sql);
-            stmt.setString(Role.getName(),Role.access_level());
+            stmt.setString(getName(), getAccess_level());
 
             result = stmt.executeUpdate();
-            System.out.println("deleted:" + role.getName());
+            System.out.println("deleted:" + getName());
         }
 
         catch(SQLException e){
+            System.out.println("error. Role not deleted");
 
         }
 
         return result;
     }
 
-    public void getString() {
-        return String;
     }
-}
