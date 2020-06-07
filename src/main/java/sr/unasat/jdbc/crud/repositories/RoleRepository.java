@@ -1,19 +1,22 @@
 package sr.unasat.jdbc.crud.repositories;
 
-import com.sun.tools.javac.util.List;
 import sr.unasat.jdbc.crud.entities.Role;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
-import static sr.unasat.jdbc.crud.entities.Role.getaccess_level;
+import static sr.unasat.jdbc.crud.entities.Role.*;
 
-public class RoleRepository<result> {
+public abstract class RoleRepository {
     private Connection connection;
     private String role_name;
-    private String access_level;
+    public String access_level;
+
+
 
     public RoleRepository(){
+        
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("De driver is geregistreerd!");
@@ -21,7 +24,7 @@ public class RoleRepository<result> {
 
             String URL = "jdbc:mysql://localhost/AFitness";
             String USER = "root";
-            String PASS = "";
+            String PASS = "root";
             connection = DriverManager.getConnection(URL, USER, PASS);
             System.out.println(connection);
         } catch (ClassNotFoundException ex) {
@@ -31,9 +34,8 @@ public class RoleRepository<result> {
             e.printStackTrace();
         }
     }
-    public List <Role> findAllRecords(){
-        List <Role> roleList;
-        roleList = new List <Role>();
+    public List<Role> findAllRecords (){
+       java.util.List<Role> roleList = new ArrayList<Role>();
         Statement stmt = null;
 
         try{
@@ -54,7 +56,7 @@ public class RoleRepository<result> {
 
                 roleList.add(new Role (role_id,name,access_level));
                 roleList.add(new Role(rs.getInt("role_id"), rs.getString("role_name"),
-                        rs.getString("access-level"));
+                        rs.getString("access-level")));
 
             }
             rs.close();
@@ -67,19 +69,27 @@ public class RoleRepository<result> {
         return roleList;
 
     }
+    
+    
+    
     public int insertOneRecord(Role role){
         PreparedStatement stmt= null;
         int result = 0;
-        try {String sql = "INSERT INTO roles (role_name,access_level)  values (?)";
-            stmt= connection.prepareStatement(sql);
-            stmt.setString  (Role.getName(),Role.getaccess_level() );
-            result=stmt.executeUpdate("resultset:" + result);
+        try {
+            String sql = "INSERT INTO roles (role_name,access_level)  values (?)";
+            stmt = connection.prepareStatement(sql);
+            stmt.setString(1 , getName());
+            stmt.setString(2,getAccess_level());
 
+            result = stmt.executeUpdate("resultset:" + result);
 
-        } catch (SQLException throwables) {
+        }
+        catch (SQLException throwables) {
             throwables.printStackTrace();
 
         } return result;
+        
+        
 
     }
     public Role getClientById(int id) {
@@ -111,11 +121,10 @@ public class RoleRepository<result> {
         PreparedStatement stmt = null;
         int result = 0;
         try {
-            String sql = "update roles  set role_id = ?, role_name= ? , = ?";
+            String sql = "update roles  set role_id = ?, role_name= ? ,access_level = ?";
             stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, Role.getrole_id());
-            stmt.setString(2, Role.getName());
-            stmt.setString(3, getaccess_level());
+            stmt.setString(1,Role.getName());
+            stmt.setString( 2, Role.getAccess_level());
             result = stmt.executeUpdate();
             System.out.println("resultset: " + result);
 
@@ -129,24 +138,25 @@ public class RoleRepository<result> {
 
 
 
-
-    public int deleteOneRecord(Role role) {
+    public int deleteOneRecord (Role role) {
         PreparedStatement stmt = null;
         int result = 0;
         try {
             String sql = " DELETE FROM roles WHERE role_id=?";
             stmt = connection.prepareStatement(sql);
-            stmt.setString(Role.getName(),Role.access_level());
+            stmt.setString(1, getName());
+            stmt.setString(2, getAccess_level());
 
             result = stmt.executeUpdate();
-            System.out.println("deleted:" + role.getName());
+            System.out.println("deleted:" + getName());
         }
 
         catch(SQLException e){
+            System.out.println("error. Role not deleted");
 
         }
 
         return result;
     }
 
-}
+    }

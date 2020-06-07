@@ -1,45 +1,42 @@
 package sr.unasat.jdbc.crud.entities;
 
 public class Role {
-private int role_id;
-private String name;
-private String acces_level;
+    private static String role_name;
+private static String access_level;
 
-
-public Role (int role_id, String name, String acces_level)
+public Role (int role_id, String role_name, String access_level)
 {
-    this.role_id=role_id;
-    this.name=name;
-    this.acces_level=acces_level;
+    role_name =          role_name;
+    Role.access_level =   access_level;
 }
 
-public Role(int role_id){ this.role_id=role_id;
-}
-public void name (String name)  { this.name=name;
-}
-public void acces_level (String acces_level){ this.acces_level=acces_level;
-}
+    public Role(int role_id){
+    }
+    public static void getaccess_level() {
+    }
+    public static void access_level() {
+    }
+    public static String getName() {
+        return role_name;
+    }
+    public static String getAccess_level() {
+        return access_level;
+    }
+    public void role_name (String role_name)
+    { Role.role_name =role_name;
+    }
+    public void setRole_id(int role_id)
+    {
+    }
+    public void setName(String name) {
+    role_name =  role_name;
+    }
 
-public void setRole_id(int role_id)   {   this.role_id=role_id;
-}
-public String getName()
-{
-    return name;
-}
-public void getacces_level() { this.acces_level=acces_level;
-}
-public void setName(String name) {this.name = name;
-}
-public void setAcces_level(String acces_level) {
-    this.acces_level = acces_level;
-
-}
-
-    /*
-@Override
+        /*
+    @Override
     public String toString(){
     return "Role{"+"role_id="+role_id+
-                ", name='" + name+",acces_level='"+ acces_level+ '\'' +
+                ", role_name='" + role_name+",access_level='"+ access_level+ '\'' +
                 '}'  ;
 
 }
@@ -47,3 +44,5 @@ public void setAcces_level(String acces_level) {
 
 
 }
+
+

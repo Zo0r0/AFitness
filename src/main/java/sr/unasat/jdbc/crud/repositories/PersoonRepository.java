@@ -62,6 +62,7 @@ public class PersoonRepository {
         PreparedStatement stmt = null;
         int result = 0;
         try {
+
             String sql = "insert into persoon (naam) values(?)";
             stmt = connection.prepareStatement(sql);
             stmt.setString(1, persoon.getNaam());
@@ -79,6 +80,7 @@ public class PersoonRepository {
     public int deleteOneRecord(Persoon persoon){
         PreparedStatement stmt = null;
         int result = 0;
+
         try {
             String sql = "DELETE FROM persoon WHERE persoon.id = ?";
             stmt = connection.prepareStatement(sql);
@@ -88,9 +90,8 @@ public class PersoonRepository {
 
         } catch (SQLException e) {
 
-        } finally {
-
         }
+
         return result;
     }
 
