@@ -6,7 +6,7 @@ private static String access_level;
 
 public Role (int role_id, String role_name, String access_level)
 {
-    role_name =          role_name;
+    role_name = role_name;
     Role.access_level =   access_level;
 }
 
