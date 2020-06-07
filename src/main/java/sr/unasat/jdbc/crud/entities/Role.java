@@ -1,10 +1,12 @@
 package sr.unasat.jdbc.crud.entities;
 
 public class Role {
-    private static String role_name;
-private static String access_level;
+    public static String role_name;
+    public  String access_level;
+    public int role_id;
+    public int getrole_id;
 
-public Role (int role_id, String role_name, String access_level)
+    public Role (int role_id, String role_name, String access_level)
 {
     this.role_name = role_name;
     this.access_level =   access_level;
@@ -13,14 +15,19 @@ public Role (int role_id, String role_name, String access_level)
     public Role(int role_id){
     }
 
-    public static void access_level() {
+    public  void access_level() {
     }
-    public static void getaccess_level() {
+    public  void getaccess_level() {
     }
-    public static String getName() {
+    public  String getName() {
         return role_name;
     }
-    public static String getAccess_level() {
+
+    public Integer getrole_id() {
+        return role_id;
+    }
+
+    public String getAccess_level() {
         return access_level;
     }
     public void role_name (String role_name)

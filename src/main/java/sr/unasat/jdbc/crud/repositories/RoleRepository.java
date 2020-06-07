@@ -72,10 +72,10 @@ public class RoleRepository {
 
         try {
             //                Note: Explain
-            String sql = "INSERT INTO roles (role_name,access_level)  values (?)";
+            String sql = "INSERT INTO roles (role_name,access_level)  values (?,?)";
             stmt = connection.prepareStatement(sql);
-            stmt.setString(1 , getName());
-            stmt.setString(2,getAccess_level());
+            stmt.setString(1 , role.getName());
+            stmt.setString(2,role.getAccess_level());
 
             result = stmt.executeUpdate("resultset:" + result);
         }
@@ -96,17 +96,17 @@ public class RoleRepository {
             stmt = connection.prepareStatement(sql);
 
             //                Note: Explain
-            int role_id = 0;
-            stmt.setInt(1, role_id);
+
+            stmt.setInt(1, id);
 
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
 
                 //                Note: Correct
-                  role_id = rs.getInt("role_id");
+                  id = rs.getInt("role_id");
                 String role_name = rs.getString("role_name");
                 String access_level = rs.getString("access_level");
-                role = new Role(role_id, role_name, access_level );
+                role = new Role(id, role_name, access_level );
             }
             rs.close();
 
@@ -123,12 +123,12 @@ public class RoleRepository {
         try {
 
             //                Note: Explain
-            String sql = "update roles  set role_id = ?, role_name= ? ,access_level = ?";
+            String sql = "update roles  set role_name= ? ,access_level = ?";
             stmt = connection.prepareStatement(sql);
 
             //                Note: Correct done?
-            stmt.setString(1,Role.getName());
-            stmt.setString( 2, Role.getAccess_level());
+            stmt.setString(1,role.getName());
+            stmt.setString( 2, role.getAccess_level());
 
             result = stmt.executeUpdate();
         } catch (SQLException e)
@@ -147,8 +147,8 @@ public class RoleRepository {
             stmt = connection.prepareStatement(sql);
 
             //                Note: Explain
-            stmt.setString(1, getName());
-            stmt.setString(2, getAccess_level());
+            stmt.setInt(1, role.getrole_id());
+
 
             result = stmt.executeUpdate();
         }
