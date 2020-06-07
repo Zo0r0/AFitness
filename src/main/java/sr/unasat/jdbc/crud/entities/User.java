@@ -23,7 +23,7 @@ public class User {
     public void setUser_id(int user_id) { this.user_id = user_id; }
     public void setUsername(String username) { this.username = username; }
     public void setPassword(String password) { this.password = password; }
-    public void setRole(User user) { this.role = role; }
+    public void setRole(Role role) { this.role = role; }
 
     /*@Override
     public String toString() {
