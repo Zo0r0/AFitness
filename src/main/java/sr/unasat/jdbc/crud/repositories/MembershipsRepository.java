@@ -1,7 +1,6 @@
 package sr.unasat.jdbc.crud.repositories;
 
-import com.mysql.jdbc.Driver;
-import sr.unasat.jdbc.crud.entities.Memberships;
+import sr.unasat.jdbc.crud.entities.Membership;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -27,8 +26,8 @@ public class MembershipsRepository {
         }
     }
 
-    public List<Memberships> getAllRecords() {
-        List<Memberships> membershipList = new ArrayList<Memberships>();
+    public List<Membership> getAllRecords() {
+        List<Membership> membershipList = new ArrayList<Membership>();
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
@@ -41,7 +40,7 @@ public class MembershipsRepository {
                 String membership_price = rs.getString("membership_price");
                 boolean is_active = rs.getBoolean("membership_is_active");
 
-                membershipList.add(new Memberships(membership_id, membership_period, membership_price, is_active));
+                membershipList.add(new Membership(membership_id, membership_period, membership_price, is_active));
             }
             rs.close();
 
@@ -53,8 +52,8 @@ public class MembershipsRepository {
         return membershipList;
     }
 
-    public Memberships getMembershipById(int id) {
-        Memberships memberships = null;
+    public Membership getMembershipById(int id) {
+        Membership membership = null;
         PreparedStatement stmt = null;
         try {
             String sql = "select * from memberships where id = ?";
@@ -66,23 +65,23 @@ public class MembershipsRepository {
                 String membership_period = rs.getString("membership_period");
                 String membership_price = rs.getString("membership_price");
                 boolean is_active = rs.getBoolean("membership_is_active");
-                memberships = new Memberships (membership_id, membership_period, membership_price, is_active);
+                membership = new Membership(membership_id, membership_period, membership_price, is_active);
             }
             rs.close();
         } catch (SQLException e) {
             System.out.println("An error has occurred ");
         }
-        return memberships;
+        return membership;
     }
 
-    public int insertMembershipRecord(Memberships memberships) {
+    public int insertMembershipRecord(Membership membership) {
         PreparedStatement stmt = null;
         int result = 0;
         try {
             String sql = "insert into memberships (membership_period, membership_price) values(?, ?)";
             stmt = connection.prepareStatement(sql);
-            stmt.setString(1, memberships.getPeriod());
-            stmt.setString(2, memberships.getPrice());
+            stmt.setString(1, membership.getPeriod());
+            stmt.setString(2, membership.getPrice());
             result = stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
@@ -93,15 +92,15 @@ public class MembershipsRepository {
         return result;
     }
 
-    public int updateMembershipRecord(Memberships memberships) {
+    public int updateMembershipRecord(Membership membership) {
         PreparedStatement stmt = null;
         int result = 0;
         try {
             String sql = "update memberships set membership_period = ? membership_price = ? where membership_id = ?";
             stmt = connection.prepareStatement(sql);
-            stmt.setString(1, memberships.getPeriod());
-            stmt.setString(2, memberships.getPrice());
-            stmt.setInt(3, memberships.getId());
+            stmt.setString(1, membership.getPeriod());
+            stmt.setString(2, membership.getPrice());
+            stmt.setInt(3, membership.getId());
             result = stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -112,13 +111,13 @@ public class MembershipsRepository {
         return result;
     }
 
-    public int deleteMembershipRecord(Memberships memberships){
+    public int deleteMembershipRecord(Membership membership){
         PreparedStatement stmt = null;
         int result = 0;
         try {
             String sql = "delete from memberships where membership_id = ?";
             stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, memberships.getId());
+            stmt.setInt(1, membership.getId());
             result = stmt.executeUpdate();
 
         } catch (SQLException e) {

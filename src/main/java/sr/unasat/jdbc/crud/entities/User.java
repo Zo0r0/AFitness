@@ -1,13 +1,13 @@
 package sr.unasat.jdbc.crud.entities;
 
-public class Users {
+public class User {
 
     private int user_id;
     private String username;
     private String password;
     private int role_id;
 
-    public Users(int user_id , String username , String password , int roll_id){
+    public User(int user_id , String username , String password , int role_id){
         this.user_id = user_id;
         this.username = username;
         this.password = password;

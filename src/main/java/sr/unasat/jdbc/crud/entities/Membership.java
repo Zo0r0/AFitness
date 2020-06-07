@@ -1,11 +1,11 @@
 package sr.unasat.jdbc.crud.entities;
 
-public class Memberships {
+public class Membership {
     public int membership_id;
     public String membership_period;
     public String membership_price;
 
-    public Memberships(int id, String period, String price, boolean is_active){
+    public Membership(int id, String period, String price){
         this.membership_id = id;
         this.membership_period = period;
         this.membership_price = price;
