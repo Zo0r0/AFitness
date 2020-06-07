@@ -1,0 +1,115 @@
+Index: src/main/java/sr/unasat/jdbc/crud/repositories/RoleRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package sr.unasat.jdbc.crud.repositories;\r\n\r\nimport sr.unasat.jdbc.crud.entities.Role;\r\n\r\nimport java.sql.*;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\nimport static sr.unasat.jdbc.crud.entities.Role.*;\r\n\r\npublic abstract class RoleRepository <result> {\r\n    private Connection connection;\r\n    private String role_name;\r\n    public String access_level;\r\n\r\n\r\n\r\n    public RoleRepository(){\r\n        try {\r\n            Class.forName(\"com.mysql.jdbc.Driver\");\r\n            System.out.println(\"De driver is geregistreerd!\");\r\n\r\n\r\n            String URL = \"jdbc:mysql://localhost/AFitness\";\r\n            String USER = \"root\";\r\n            String PASS = \"root\";\r\n            connection = DriverManager.getConnection(URL, USER, PASS);\r\n            System.out.println(connection);\r\n        } catch (ClassNotFoundException ex) {\r\n            System.out.println(\"Error: unable to load driver class!\");\r\n            System.exit(1);\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n    public List<Role> findAllRecords (){\r\n       java.util.List<Role> roleList = new ArrayList<Role>();\r\n        Statement stmt = null;\r\n\r\n        try{\r\n            stmt = connection.createStatement();\r\n            String sql =\"SELECT * from roles\";\r\n            ResultSet rs = stmt.executeQuery(sql);\r\n            System.out.println(\"resultset:\"+ rs );\r\n            // Extract\r\n            while (rs.next()){\r\n                //retrieve by colum name\r\n                int role_id = rs.getInt(\"role_id\");\r\n                String name = rs.getString(\"role_name\");\r\n                String access_level = rs.getString(\"access_level\");\r\n                //display values\r\n                System.out.print(\"role_id: \" + role_id);\r\n                System.out.print(\", role_name: \" + role_name);\r\n                System.out.println(\", access_level:\"+ access_level);\r\n\r\n                roleList.add(new Role (role_id,name,access_level));\r\n                roleList.add(new Role(rs.getInt(\"role_id\"), rs.getString(\"role_name\"),\r\n                        rs.getString(\"access-level\")));\r\n\r\n            }\r\n            rs.close();\r\n\r\n        } catch (SQLException e){\r\n\r\n        }finally {\r\n\r\n        }\r\n        return roleList;\r\n\r\n    }\r\n    public int insertOneRecord(Role role){\r\n        PreparedStatement stmt= null;\r\n        int result = 0;\r\n        try {String sql = \"INSERT INTO roles (role_name,access_level)  values (?)\";\r\n            stmt= connection.prepareStatement(sql);\r\n            stmt.setString  ( getName(),getAccess_level());\r\n\r\n            result=stmt.executeUpdate(\"resultset:\" + result);\r\n\r\n\r\n        } catch (SQLException throwables) {\r\n            throwables.printStackTrace();\r\n\r\n        } return result;\r\n\r\n    }\r\n    public Role getClientById(int id) {\r\n        Role role = null;\r\n        PreparedStatement stmt = null;\r\n        try {\r\n            String sql = \"select * from roles where role_id = ?\";\r\n            stmt = connection.prepareStatement(sql);\r\n            int role_id= 0;\r\n            stmt.setInt(1, role_id);\r\n            ResultSet rs = stmt.executeQuery(sql);\r\n            while (rs.next()) {\r\n                int client_id = rs.getInt(\"role_id\");\r\n                String name = rs.getString(\"role_name\");\r\n                String surname = rs.getString(\"access_level\");\r\n                role = new Role(role_id, role_name, access_level );\r\n            }\r\n            rs.close();\r\n        } catch (SQLException e) {\r\n            System.out.println(\"An error has occurred \");\r\n        }\r\n        return role ;\r\n    }\r\n\r\n\r\n\r\n\r\n    public int updateOneRecord(Role role) {\r\n        PreparedStatement stmt = null;\r\n        int result = 0;\r\n        try {\r\n            String sql = \"update roles  set role_id = ?, role_name= ? ,access_level = ?\";\r\n            stmt = connection.prepareStatement(sql);\r\n            stmt.setInt(1,role.getName());\r\n            stmt.setString( getName(), Role.getAccess_level());\r\n            result = stmt.executeUpdate();\r\n            System.out.println(\"resultset: \" + result);\r\n\r\n        } catch (SQLException e)\r\n        {\r\n\r\n        }\r\n        return result;\r\n    }\r\n\r\n\r\n\r\n\r\n    public int deleteOneRecord (Role role) {\r\n        PreparedStatement stmt = null;\r\n        int result = 0;\r\n        try {\r\n            String sql = \" DELETE FROM roles WHERE role_id=?\";\r\n            stmt = connection.prepareStatement(sql);\r\n            stmt.setString(getName(), getAccess_level());\r\n\r\n            result = stmt.executeUpdate();\r\n            System.out.println(\"deleted:\" + getName());\r\n        }\r\n\r\n        catch(SQLException e){\r\n            System.out.println(\"error. Role not deleted\");\r\n\r\n        }\r\n\r\n        return result;\r\n    }\r\n\r\n    }
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/sr/unasat/jdbc/crud/repositories/RoleRepository.java	(revision 0455a0bcca4b040001dcc567013a90393fefd59f)
++++ src/main/java/sr/unasat/jdbc/crud/repositories/RoleRepository.java	(date 1591489710275)
+@@ -8,7 +8,7 @@
+ 
+ import static sr.unasat.jdbc.crud.entities.Role.*;
+ 
+-public abstract class RoleRepository <result> {
++public abstract class RoleRepository {
+     private Connection connection;
+     private String role_name;
+     public String access_level;
+@@ -16,6 +16,7 @@
+ 
+ 
+     public RoleRepository(){
++        
+         try {
+             Class.forName("com.mysql.jdbc.Driver");
+             System.out.println("De driver is geregistreerd!");
+@@ -68,20 +69,26 @@
+         return roleList;
+ 
+     }
++    
++    
++    
+     public int insertOneRecord(Role role){
+         PreparedStatement stmt= null;
+         int result = 0;
+-        try {String sql = "INSERT INTO roles (role_name,access_level)  values (?)";
+-            stmt= connection.prepareStatement(sql);
+-            stmt.setString  ( getName(),getAccess_level());
++        try {
++            String sql = "INSERT INTO roles (role_name,access_level)  values (?)";
++            stmt = connection.prepareStatement(sql);
++            stmt.setString( getName(), getAccess_level());
+ 
+-            result=stmt.executeUpdate("resultset:" + result);
++            result = stmt.executeUpdate("resultset:" + result);
+ 
+-
+-        } catch (SQLException throwables) {
++        }
++        catch (SQLException throwables) {
+             throwables.printStackTrace();
+ 
+         } return result;
++        
++        
+ 
+     }
+     public Role getClientById(int id) {
+Index: src/main/java/sr/unasat/jdbc/crud/entities/Role.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package sr.unasat.jdbc.crud.entities;\r\n\r\npublic class Role {\r\n    private static String role_name;\r\nprivate static String access_level;\r\n\r\npublic Role (int role_id, String role_name, String access_level)\r\n{\r\n    role_name =          role_name;\r\n    Role.access_level =   access_level;\r\n}\r\n\r\n    public Role(int role_id){\r\n\r\n    }\r\n\r\n    public static void getaccess_level() {\r\n\r\n    }\r\n    public static void access_level() {\r\n    }\r\n    public static int getName() {\r\n        return role_name;\r\n    }\r\n    public static String getAccess_level() {\r\n        return access_level;\r\n    }\r\n    public void role_name (String role_name)\r\n    { Role.role_name =role_name;\r\n}\r\n\r\n    public void setRole_id(int role_id)\r\n{\r\n}\r\n    public void setName(String name) {\r\n    role_name =  role_name;\r\n}\r\n\r\n    /*\r\n@Override\r\n    public String toString(){\r\n    return \"Role{\"+\"role_id=\"+role_id+\r\n                \", role_name='\" + role_name+\",access_level='\"+ access_level+ '\\'' +\r\n                '}'  ;\r\n\r\n}\r\n*/\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/sr/unasat/jdbc/crud/entities/Role.java	(revision 0455a0bcca4b040001dcc567013a90393fefd59f)
++++ src/main/java/sr/unasat/jdbc/crud/entities/Role.java	(date 1591489710284)
+@@ -11,15 +11,12 @@
+ }
+ 
+     public Role(int role_id){
+-
+     }
+-
+     public static void getaccess_level() {
+-
+     }
+     public static void access_level() {
+     }
+-    public static int getName() {
++    public static String getName() {
+         return role_name;
+     }
+     public static String getAccess_level() {
+@@ -27,17 +24,16 @@
+     }
+     public void role_name (String role_name)
+     { Role.role_name =role_name;
+-}
+-
++    }
+     public void setRole_id(int role_id)
+-{
+-}
++    {
++    }
+     public void setName(String name) {
+     role_name =  role_name;
+-}
++    }
+ 
+-    /*
+-@Override
++        /*
++    @Override
+     public String toString(){
+     return "Role{"+"role_id="+role_id+
+                 ", role_name='" + role_name+",access_level='"+ access_level+ '\'' +
+@@ -48,3 +44,5 @@
+ 
+ 
+ }
++
++
