@@ -50,8 +50,9 @@ public class RoleRepository {
                 roleList.add(new Role (role_id,role_name,access_level));
 
                 //                Note: Explain
-                roleList.add(new Role(rs.getInt("role_id"), rs.getString("role_name"),
-                        rs.getString("access-level")));
+                roleList.add(new Role ( rs.getInt("role_id"),
+                                        rs.getString("role_name"),
+                                        rs.getString("access-level")));
 
             }
             rs.close();

@@ -6,15 +6,16 @@ private static String access_level;
 
 public Role (int role_id, String role_name, String access_level)
 {
-    role_name = role_name;
+    Role.role_name = role_name;
     Role.access_level =   access_level;
 }
 
     public Role(int role_id){
     }
-    public static void getaccess_level() {
-    }
+
     public static void access_level() {
+    }
+    public static void getaccess_level() {
     }
     public static String getName() {
         return role_name;
