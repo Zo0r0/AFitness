@@ -19,7 +19,7 @@ public Role (int role_id, String role_name, String access_level)
     }
     public static void access_level() {
     }
-    public static String getName() {
+    public static int getName() {
         return role_name;
     }
     public static String getAccess_level() {
