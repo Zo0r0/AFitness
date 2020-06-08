@@ -38,7 +38,7 @@ alter table afitness_db.clients
 add foreign key fk_users(client_user_id) references users(id);
 
 alter table afitness_db.users
-add foreign key fk_users(role_id) references roles(id);
+add foreign key fk_roles(role_id) references roles(id);
 
 
 insert into afitness_db.memberships (
