@@ -1,6 +1,6 @@
-package sr.unasat.jdbc.crud.repositories;
+package sr.unasat.afitness.crud.repositories;
 
-import sr.unasat.jdbc.crud.entities.Membership;
+import sr.unasat.afitness.crud.entities.Membership;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -38,9 +38,8 @@ public class MembershipsRepository {
                 int membership_id = rs.getInt("membership_id");
                 String membership_period = rs.getString("membership_period");
                 String membership_price = rs.getString("membership_price");
-                boolean is_active = rs.getBoolean("membership_is_active");
 
-                membershipList.add(new Membership(membership_id, membership_period, membership_price, is_active));
+                membershipList.add(new Membership(membership_id, membership_period, membership_price));
             }
             rs.close();
 
@@ -64,8 +63,7 @@ public class MembershipsRepository {
                 int membership_id = rs.getInt("id");
                 String membership_period = rs.getString("membership_period");
                 String membership_price = rs.getString("membership_price");
-                boolean is_active = rs.getBoolean("membership_is_active");
-                membership = new Membership(membership_id, membership_period, membership_price, is_active);
+                membership = new Membership(membership_id, membership_period, membership_price);
             }
             rs.close();
         } catch (SQLException e) {

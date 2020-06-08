@@ -1,10 +1,10 @@
-package sr.unasat.jdbc.crud.repositories;
+package sr.unasat.afitness.crud.repositories;
 
 
-import sr.unasat.jdbc.crud.entities.Client;
-import sr.unasat.jdbc.crud.entities.Membership;
-import sr.unasat.jdbc.crud.entities.Role;
-import sr.unasat.jdbc.crud.entities.User;
+import sr.unasat.afitness.crud.entities.Client;
+import sr.unasat.afitness.crud.entities.Membership;
+import sr.unasat.afitness.crud.entities.Role;
+import sr.unasat.afitness.crud.entities.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,14 +16,15 @@ public class ClientRepository {
 
     public ClientRepository() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("De driver is geregistreerd!");
 
-            String URL = "jdbc:mysql://localhost/afitness_db";
+            String URL = "jdbc:mysql://localhost:3306/afitness_db?autoReconnect=true&useSSL=false";
             String USER = "root";
             String PASS = "root";
+
             connection = DriverManager.getConnection(URL, USER, PASS);
-            System.out.println(connection);
+
         } catch (ClassNotFoundException ex) {
             System.out.println("Error: unable to load driver class!");
             System.exit(1);
@@ -34,29 +35,71 @@ public class ClientRepository {
 
     public List<Client> getAllRecords() {
         List<Client> clientList = new ArrayList<Client>();
+        List<Membership> membershipList = new ArrayList<Membership>();
+        List<Role> roleList = new ArrayList<Role>();
+        List<User> userList = new ArrayList<User>();
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            String sql = "select * from clients inner join memberships";
+            String sql ="select " +
+                        "cl.id as id, " +
+                        "cl.client_name as name, " +
+                        "cl.client_surname as surname, " +
+                        "cl.client_phonenumber as phonenumber, " +
+                        "cl.client_address as address, " +
+                        "cl.client_date_of_birth as date_of_birth, " +
+                        "cl.client_is_active as is_active, " +
+                        "cl.client_membership_id as membership_id, " +
+                        "m.membership_period, " +
+                        "m.membership_price, " +
+                        "cl.client_membership_expiration as membership_expiration, " +
+                        "cl.client_user_id as user_id, " +
+                        "u.username, " +
+                        "u.password, " +
+                        "u.role_id, " +
+                        "r.role_name, " +
+                        "r.access_level" +
+                        "from clients as cl " +
+                        "join memberships as m on m.id = cl.client_membership_id " +
+                        "join users as u on u.id cl.client_user_id " +
+                        "join roles as r on r.id = u.role_id";
+
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("client_name");
-                String surname = rs.getString("client_surname");
-                String phonenumber = rs.getString("client_phonenumber");
-                Date date_of_birth = rs.getDate("client_date_of_birth");
-                boolean is_active = rs.getBoolean("client_is_active");
-                int membership_id = rs.getInt("client_memebership_id");
-                Date membership_expiration = rs.getDate("client_membership_expiration");
-                int user_id = rs.getInt("user_id");
+                int client_id = rs.getInt("id");
+                String name = rs.getString("name");
+                String surname = rs.getString("surname");
+                String phonenumber = rs.getString("phonenumber");
+                Date date_of_birth = rs.getDate("date_of_birth");
+                boolean is_active = rs.getBoolean("is_active");
 
-                clientList.add(new Client(id,name, surname, phonenumber, date_of_birth, is_active, membership_id, membership_expiration, user_id));
+                int membership_id = rs.getInt("membership_id");
+                String membership_period = rs.getString("membership_period");
+                String membership_price = rs.getString("membership_price");
+                Date membership_expiration = rs.getDate("client_membership_expiration");
+
+                int user_id = rs.getInt("user_id");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                int role_id = rs.getInt("role_id");
+                String role_name = rs.getString("role_name");
+                String access_level = rs.getString("access_level");
+
+                Membership membership = new Membership(membership_id, membership_period, membership_price);
+                Role role = new Role(role_id, role_name, access_level);
+                User user = new User(user_id, username, password, role);
+
+                roleList.add(role);
+                userList.add(user);
+                membershipList.add(membership);
+                clientList.add(new Client(client_id, name, surname, phonenumber,
+                        date_of_birth, is_active, membership, membership_expiration, user));
             }
             rs.close();
 
         } catch (SQLException e) {
-            System.out.println("An error has occurred ");
+            System.out.println("An error has occurred:" + e);
         }
         return clientList;
     }
@@ -70,28 +113,28 @@ public class ClientRepository {
         PreparedStatement stmt = null;
 
         try {
-            String sql ="select" +
-                        "c.id as id, " +
-                        "c.client_name as name, " +
-                        "c.client_surname as surname, " +
-                        "c.client_phonenumber as phonenumber, " +
-                        "c.client_address as address, " +
-                        "c.client_date_of_birth as date_of_birth, " +
-                        "c.client_is_active as is_active, " +
-                        "c.client_membership_id as membership_id, " +
+            String sql ="select " +
+                        "cl.id as id, " +
+                        "cl.client_name as name, " +
+                        "cl.client_surname as surname, " +
+                        "cl.client_phonenumber as phonenumber, " +
+                        "cl.client_address as address, " +
+                        "cl.client_date_of_birth as date_of_birth, " +
+                        "cl.client_is_active as is_active, " +
+                        "cl.client_membership_id as membership_id, " +
                         "m.membership_period, " +
                         "m.membership_price, " +
-                        "c.client_membership_expiration as membership_expiration, " +
-                        "c.client_user_id as user_id, " +
+                        "cl.client_membership_expiration as membership_expiration, " +
+                        "cl.client_user_id as user_id, " +
                         "u.username, " +
                         "u.password, " +
                         "u.role_id, " +
                         "r.role_name, " +
                         "r.access_level" +
-                        "from clients as c" +
-                        "inner join memberships as m on c.client_membership_id = m.id" +
-                        "inner join users as u on c.client_user_id = u.id" +
-                        "inner join roles as r on u.role_id = r.id where c.id = ?";
+                        "from clients as cl " +
+                        "inner join memberships as m on cl.client_membership_id = m.id" +
+                        "inner join users as u on cl.client_user_id = u.id" +
+                        "inner join roles as r on u.role_id = r.id where cl.id = ?";
 
             stmt = connection.prepareStatement(sql);
 

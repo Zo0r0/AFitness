@@ -1,4 +1,4 @@
-package sr.unasat.jdbc.crud.entities;
+package sr.unasat.afitness.crud.entities;
 
 import java.util.Date;
 
@@ -98,7 +98,7 @@ public class Client {
     }
 
     public int getUserId() {
-        return user.getUser_id();
+        return user.getUserId();
     }
 
     public void setUser(User user) {

@@ -1,4 +1,4 @@
-package sr.unasat.jdbc.crud.entities;
+package sr.unasat.afitness.crud.entities;
 
 public class Membership {
     public int membership_id;
