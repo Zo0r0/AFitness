@@ -2,10 +2,12 @@ package sr.unasat.jdbc.crud.repositories;
 
 import sr.unasat.jdbc.crud.entities.Membership;
 import sr.unasat.jdbc.crud.entities.User;
+import sr.unasat.jdbc.crud.entities.Role;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class UsersRepository {
     private Connection connection;
@@ -55,9 +57,10 @@ public class UsersRepository {
 
     public User findUserById(int id) {
         User user = null;
+        Role role = null;
         PreparedStatement stmt = null;
         try {
-            String sql = "select * from user where id = ?";
+            String sql = "select * from users inner join roles on users.role_id = roles.id where id = ?";
             stmt = connection.prepareStatement(sql);
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery(sql);
@@ -66,6 +69,9 @@ public class UsersRepository {
                 String username = rs.getString("username");
                 String password = rs.getString("password");
                 int role_id = rs.getInt("role_id");
+                String role_name = rs.getString("role_name");
+                String acces_level = rs.getString("acces_level");
+                role = new Role(role_id , role_name , acces_level);
                 user = new User(user_id, username, password, role_id);
             }
             rs.close();
