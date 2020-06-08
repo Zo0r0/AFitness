@@ -1,5 +1,5 @@
 create schema afitness_db;
-CREATE TABLE afitness_db.membership (
+CREATE TABLE afitness_db.memberships (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     membership_period VARCHAR(20) NOT NULL,
     membership_price VARCHAR(20) NOT NULL
@@ -24,7 +24,7 @@ CREATE TABLE afitness_db.roles (
     access_level CHAR(2)
 );
 
-CREATE TABLE afitness_db.user (
+CREATE TABLE afitness_db.users (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(25) NOT NULL,
     password VARCHAR(25) NOT NULL,
@@ -32,16 +32,16 @@ CREATE TABLE afitness_db.user (
 );
 
 alter table afitness_db.clients
-add foreign key fk_clients(client_membership_id) references membership(id);
+add foreign key fk_clients(client_membership_id) references memberships(id);
 
 alter table afitness_db.clients
-add foreign key fk_users(client_user_id) references user(id);
+add foreign key fk_users(client_user_id) references users(id);
 
-alter table afitness_db.user
+alter table afitness_db.users
 add foreign key fk_users(role_id) references roles(id);
 
 
-insert into afitness_db.membership (
+insert into afitness_db.memberships (
 membership_period, 
 membership_price) values
 ('3 maanden', 'SRD 300'),
@@ -58,7 +58,7 @@ access_level) values
 ("receptionist", "R"),
 ("client", "R");
 
-insert into afitness_db.user (
+insert into afitness_db.users (
 username,
 password,
 role_id) values
