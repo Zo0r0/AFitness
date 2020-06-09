@@ -1,6 +1,6 @@
 package sr.unasat.afitness.crud.entities;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Client {
     public int id;
@@ -8,12 +8,12 @@ public class Client {
     public String surname;
     public String phonenumber;
     public Date date_of_birth;
-    public boolean is_active;
+    public String is_active;
     public Membership membership;
     public Date membership_expiration;
     public User user;
 
-    public Client(int id, String name, String surname, String phonenumber, Date date_of_birth, boolean is_active, Membership membership, Date membership_expiration, User user) {
+    public Client(int id, String name, String surname, String phonenumber, Date date_of_birth, String is_active, Membership membership, Date membership_expiration, User user) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -65,11 +65,11 @@ public class Client {
         this.date_of_birth = dob;
     }
 
-    public boolean getIsActive() {
+    public String getIsActive() {
         return is_active;
     }
 
-    public void setIsActive(boolean is_active) {
+    public void setIsActive(String is_active) {
         this.is_active = is_active;
     }
 

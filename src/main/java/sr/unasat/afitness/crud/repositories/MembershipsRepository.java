@@ -11,13 +11,13 @@ public class MembershipsRepository {
     public MembershipsRepository() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("De driver is geregistreerd!");
+//            System.out.println("De driver is geregistreerd!");
 
-            String URL = "jdbc:mysql://localhost/afitness_db";
+            String URL = "jdbc:mysql://localhost:3306/afitness_db?autoReconnect=true&useSSL=false";
             String USER = "root";
-            String PASS = "";
+            String PASS = "root";
             connection = DriverManager.getConnection(URL, USER, PASS);
-            System.out.println(connection);
+
         } catch (ClassNotFoundException ex) {
             System.out.println("Error: unable to load driver class!");
             System.exit(1);
@@ -31,11 +31,11 @@ public class MembershipsRepository {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            String sql = "select * from memberships";
+            String sql = "SELECT * FROM memberships";
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                int membership_id = rs.getInt("membership_id");
+                int membership_id = rs.getInt("id");
                 String membership_period = rs.getString("membership_period");
                 String membership_price = rs.getString("membership_price");
 
@@ -44,9 +44,7 @@ public class MembershipsRepository {
             rs.close();
 
         } catch (SQLException e) {
-
-        } finally {
-
+            System.out.println("An error has occurred:" + e);
         }
         return membershipList;
     }
@@ -55,10 +53,12 @@ public class MembershipsRepository {
         Membership membership = null;
         PreparedStatement stmt = null;
         try {
-            String sql = "select * from memberships where id = ?";
+            String sql = "SELECT * FROM memberships WHERE id = ?";
             stmt = connection.prepareStatement(sql);
             stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery(sql);
+
+            ResultSet rs = stmt.executeQuery();
+
             while (rs.next()) {
                 int membership_id = rs.getInt("id");
                 String membership_period = rs.getString("membership_period");
@@ -67,7 +67,7 @@ public class MembershipsRepository {
             }
             rs.close();
         } catch (SQLException e) {
-            System.out.println("An error has occurred ");
+            System.out.println("An error has occurred:" + e);
         }
         return membership;
     }
@@ -76,17 +76,17 @@ public class MembershipsRepository {
         PreparedStatement stmt = null;
         int result = 0;
         try {
-            String sql = "insert into memberships (membership_period, membership_price) values(?, ?)";
+            String sql = "INSERT INTO memberships (membership_period, membership_price) VALUES(?, ?)";
             stmt = connection.prepareStatement(sql);
             stmt.setString(1, membership.getPeriod());
             stmt.setString(2, membership.getPrice());
+
             result = stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
-            System.out.println("An error has occurred ");
-        } finally {
-
+            System.out.println("An error has occurred:" + e);
         }
+
         return result;
     }
 
@@ -94,18 +94,18 @@ public class MembershipsRepository {
         PreparedStatement stmt = null;
         int result = 0;
         try {
-            String sql = "update memberships set membership_period = ? membership_price = ? where membership_id = ?";
+            String sql = "UPDATE memberships SET membership_period = ? membership_price = ? WHERE id = ?";
             stmt = connection.prepareStatement(sql);
             stmt.setString(1, membership.getPeriod());
             stmt.setString(2, membership.getPrice());
             stmt.setInt(3, membership.getId());
+
             result = stmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("An error has occurred ");
-        } finally {
-
+            System.out.println("An error has occurred:" + e);
         }
+
         return result;
     }
 
@@ -113,15 +113,14 @@ public class MembershipsRepository {
         PreparedStatement stmt = null;
         int result = 0;
         try {
-            String sql = "delete from memberships where membership_id = ?";
+            String sql = "DELETE FROM memberships WHERE id = ?";
             stmt = connection.prepareStatement(sql);
             stmt.setInt(1, membership.getId());
+
             result = stmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("An error has occurred ");
-        } finally {
-
+            System.out.println("An error has occurred:" + e);
         }
         return result;
     }

@@ -12,13 +12,13 @@ public class RoleRepository {
     public RoleRepository(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("De driver is geregistreerd!");
+//            System.out.println("De driver is geregistreerd!");
 
-            String URL = "jdbc:mysql://localhost/AFitness";
+            String URL = "jdbc:mysql://localhost:3306/afitness_db?autoReconnect=true&useSSL=false";
             String USER = "root";
             String PASS = "root";
             connection = DriverManager.getConnection(URL, USER, PASS);
-            System.out.println(connection);
+
         } catch (ClassNotFoundException ex) {
             System.out.println("Error: unable to load driver class!");
             System.exit(1);
@@ -30,13 +30,14 @@ public class RoleRepository {
     public List<Role> findAllRecords (){
         java.util.List<Role> roleList = new ArrayList<Role>();
         Statement stmt = null;
+
         try{
             stmt = connection.createStatement();
-            String sql ="SELECT * from roles";
+            String sql ="SELECT * FROM roles";
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()){
-                int role_id = rs.getInt("role_id");
+                int role_id = rs.getInt("id");
                 String role_name = rs.getString("role_name");
                 String access_level = rs.getString("access_level");
 
@@ -45,7 +46,7 @@ public class RoleRepository {
             rs.close();
 
         } catch (SQLException e){
-            System.out.println("An error has occurred ");
+            System.out.println("An error has occurred:" + e);
         }
         return roleList;
 
@@ -56,7 +57,7 @@ public class RoleRepository {
         int result = 0;
 
         try {
-            String sql = "INSERT INTO roles (role_name,access_level)  values (?,?)";
+            String sql = "INSERT INTO roles (role_name,access_level)  VALUES (?,?)";
             stmt = connection.prepareStatement(sql);
             stmt.setString(1 , role.getRoleName());
             stmt.setString(2, role.getAccessLevel());
@@ -64,7 +65,7 @@ public class RoleRepository {
             result = stmt.executeUpdate();
 
         }catch (SQLException e) {
-            System.out.println("An error has occurred ");
+            System.out.println("An error has occurred:" + e);
         }
         return result;
     }
@@ -74,15 +75,15 @@ public class RoleRepository {
         PreparedStatement stmt = null;
 
         try {
-            String sql = "select * from roles where role_id = ?";
+            String sql = "SELECT * FROM roles WHERE id = ?";
             stmt = connection.prepareStatement(sql);
 
             stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery(sql);
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
 
-                int  role_id = rs.getInt("role_id");
+                int  role_id = rs.getInt("id");
                 String role_name = rs.getString("role_name");
                 String access_level = rs.getString("access_level");
                 role = new Role(role_id, role_name, access_level );
@@ -90,7 +91,7 @@ public class RoleRepository {
             rs.close();
 
         } catch (SQLException e) {
-            System.out.println("An error has occurred ");
+            System.out.println("An error has occurred:" + e);
         }
         return role ;
     }
@@ -101,7 +102,7 @@ public class RoleRepository {
 
         try {
 
-            String sql = "update roles  set role_name= ? ,access_level = ? where id= ?";
+            String sql = "UPDATE roles  SET role_name= ? ,access_level = ? WHERE id= ?";
             stmt = connection.prepareStatement(sql);
 
             stmt.setString(1, role.getRoleName());
@@ -110,7 +111,7 @@ public class RoleRepository {
 
             result = stmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("An error has occurred ");
+            System.out.println("An error has occurred:" + e);
         }
         return result;
     }
@@ -120,7 +121,7 @@ public class RoleRepository {
         int result = 0;
 
         try {
-            String sql = " DELETE FROM roles WHERE role_id=?";
+            String sql = " DELETE FROM roles WHERE id=?";
             stmt = connection.prepareStatement(sql);
 
             stmt.setInt(1, role.getRoleId());
@@ -128,7 +129,7 @@ public class RoleRepository {
         }
 
         catch(SQLException e){
-            System.out.println("error. Role not deleted");
+            System.out.println("An error has occurred:" + e);
         }
         return result;
     }

@@ -8,7 +8,7 @@ import sr.unasat.afitness.crud.entities.User;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public class ClientRepository {
@@ -16,7 +16,7 @@ public class ClientRepository {
 
     public ClientRepository() {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
             System.out.println("De driver is geregistreerd!");
 
             String URL = "jdbc:mysql://localhost:3306/afitness_db?autoReconnect=true&useSSL=false";
@@ -38,31 +38,34 @@ public class ClientRepository {
         List<Membership> membershipList = new ArrayList<Membership>();
         List<Role> roleList = new ArrayList<Role>();
         List<User> userList = new ArrayList<User>();
+
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            String sql ="select " +
-                        "cl.id as id, " +
-                        "cl.client_name as name, " +
-                        "cl.client_surname as surname, " +
-                        "cl.client_phonenumber as phonenumber, " +
-                        "cl.client_address as address, " +
-                        "cl.client_date_of_birth as date_of_birth, " +
-                        "cl.client_is_active as is_active, " +
-                        "cl.client_membership_id as membership_id, " +
-                        "m.membership_period, " +
-                        "m.membership_price, " +
-                        "cl.client_membership_expiration as membership_expiration, " +
-                        "cl.client_user_id as user_id, " +
-                        "u.username, " +
-                        "u.password, " +
-                        "u.role_id, " +
-                        "r.role_name, " +
-                        "r.access_level" +
-                        "from clients as cl " +
-                        "join memberships as m on m.id = cl.client_membership_id " +
-                        "join users as u on u.id cl.client_user_id " +
-                        "join roles as r on r.id = u.role_id";
+            String sql ="SELECT " +
+                    "cl.id AS id, " +
+                    "cl.client_name AS name, " +
+                    "cl.client_surname AS surname, " +
+                    "cl.client_phonenumber AS phonenumber, " +
+                    "cl.client_address AS address, " +
+                    "cl.client_date_of_birth AS date_of_birth, " +
+                    "cl.client_is_active AS is_active, " +
+                    "cl.client_membership_id AS membership_id, " +
+                    "m.membership_period, " +
+                    "m.membership_price, " +
+                    "cl.client_membership_expiration AS membership_expiration, " +
+                    "cl.client_user_id AS user_id, " +
+                    "u.username, " +
+                    "u.password, " +
+                    "u.role_id, " +
+                    "r.role_name, " +
+                    "r.access_level " +
+                    "FROM " +
+                    "((clients AS cl " +
+                    "JOIN memberships AS m ON m.id = cl.client_membership_id) " +
+                    "JOIN users AS u ON u.id = cl.client_user_id) " +
+                    "JOIN " +
+                    "roles AS r ON r.id = u.role_id";
 
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -72,12 +75,12 @@ public class ClientRepository {
                 String surname = rs.getString("surname");
                 String phonenumber = rs.getString("phonenumber");
                 Date date_of_birth = rs.getDate("date_of_birth");
-                boolean is_active = rs.getBoolean("is_active");
+                String is_active = rs.getString("is_active");
 
                 int membership_id = rs.getInt("membership_id");
                 String membership_period = rs.getString("membership_period");
                 String membership_price = rs.getString("membership_price");
-                Date membership_expiration = rs.getDate("client_membership_expiration");
+                Date membership_expiration = rs.getDate("membership_expiration");
 
                 int user_id = rs.getInt("user_id");
                 String username = rs.getString("username");
@@ -113,33 +116,36 @@ public class ClientRepository {
         PreparedStatement stmt = null;
 
         try {
-            String sql ="select " +
-                        "cl.id as id, " +
-                        "cl.client_name as name, " +
-                        "cl.client_surname as surname, " +
-                        "cl.client_phonenumber as phonenumber, " +
-                        "cl.client_address as address, " +
-                        "cl.client_date_of_birth as date_of_birth, " +
-                        "cl.client_is_active as is_active, " +
-                        "cl.client_membership_id as membership_id, " +
-                        "m.membership_period, " +
-                        "m.membership_price, " +
-                        "cl.client_membership_expiration as membership_expiration, " +
-                        "cl.client_user_id as user_id, " +
-                        "u.username, " +
-                        "u.password, " +
-                        "u.role_id, " +
-                        "r.role_name, " +
-                        "r.access_level" +
-                        "from clients as cl " +
-                        "inner join memberships as m on cl.client_membership_id = m.id" +
-                        "inner join users as u on cl.client_user_id = u.id" +
-                        "inner join roles as r on u.role_id = r.id where cl.id = ?";
+            String sql = "SELECT " +
+                    "cl.id AS id, " +
+                    "cl.client_name AS name, " +
+                    "cl.client_surname AS surname, " +
+                    "cl.client_phonenumber AS phonenumber, " +
+                    "cl.client_address AS address, " +
+                    "cl.client_date_of_birth AS date_of_birth, " +
+                    "cl.client_is_active AS is_active, " +
+                    "cl.client_membership_id AS membership_id, " +
+                    "m.membership_period, " +
+                    "m.membership_price, " +
+                    "cl.client_membership_expiration AS membership_expiration, " +
+                    "cl.client_user_id AS user_id, " +
+                    "u.username, " +
+                    "u.password, " +
+                    "u.role_id, " +
+                    "r.role_name, " +
+                    "r.access_level " +
+                    "FROM " +
+                    "((clients AS cl " +
+                    "JOIN memberships AS m ON m.id = cl.client_membership_id) " +
+                    "JOIN users AS u ON u.id = cl.client_user_id) " +
+                    "JOIN " +
+                    "roles AS r ON r.id = u.role_id " +
+                    "WHERE cl.id = ?";
 
             stmt = connection.prepareStatement(sql);
 
             stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery(sql);
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 int client_id = rs.getInt("id");
@@ -147,12 +153,12 @@ public class ClientRepository {
                 String surname = rs.getString("surname");
                 String phonenumber = rs.getString("phonenumber");
                 Date date_of_birth = rs.getDate("date_of_birth");
-                boolean is_active = rs.getBoolean("is_active");
+                String is_active = rs.getString("is_active");
 
                 int membership_id = rs.getInt("membership_id");
                 String membership_period = rs.getString("membership_period");
                 String membership_price = rs.getString("membership_price");
-                Date membership_expiration = rs.getDate("client_membership_expiration");
+                Date membership_expiration = rs.getDate("membership_expiration");
 
                 int user_id = rs.getInt("user_id");
                 String username = rs.getString("username");
@@ -170,7 +176,7 @@ public class ClientRepository {
             rs.close();
 
         } catch (SQLException e) {
-            System.out.println("An error has occurred ");
+            System.out.println("An error has occurred:" + e);
         }
         return client;
     }
@@ -180,14 +186,14 @@ public class ClientRepository {
         int result = 0;
 
         try{
-            String sql = "insert into clients(client_name, client_surname,client_phonenumber, client_date_of_birth, " +
-                    "client_is_active, client_membership_id ,client_membership_expiration, user_id) values(?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO clients(client_name, client_surname,client_phonenumber, client_date_of_birth, " +
+                    "client_is_active, client_membership_id ,client_membership_expiration, client_user_id) VALUES(?,?,?,?,?,?,?,?)";
             stmt = connection.prepareStatement(sql);
             stmt.setString(1, client.getName());
             stmt.setString(2, client.getSurname());
             stmt.setString(3, client.getPhoneNumber());
             stmt.setDate(4, (java.sql.Date) client.getDOB());
-            stmt.setBoolean(5, client.getIsActive());
+            stmt.setString(5, client.getIsActive());
             stmt.setInt(6, client.getMembershipId());
             stmt.setDate(7, (java.sql.Date) client.getMembershipExpiration());
             stmt.setInt(8, client.getUserId());
@@ -195,7 +201,7 @@ public class ClientRepository {
             result = stmt.executeUpdate();
 
         } catch(SQLException e){
-            System.out.println("An error has occurred ");
+            System.out.println("An error has occurred:" + e);
         }
 
         return result;
@@ -207,19 +213,22 @@ public class ClientRepository {
         int result = 0;
 
         try {
-            String sql = "update clients set client_name  = ? , client_surname = ?, client_phonenumber = ?, client_date_of_birth = ? , client_is_active= ? where id = ?";
+            String sql = "UPDATE clients SET " +
+                        "client_name  = ? , client_surname = ?, client_phonenumber = ?, client_date_of_birth = ? , " +
+                        "client_is_active= ? WHERE id = ?";
             stmt.setString(1, client.getName());
             stmt.setString(2, client.getSurname());
             stmt.setString(3, client.getPhoneNumber());
             stmt.setDate(4, (java.sql.Date) client.getDOB());
-            stmt.setBoolean(5, client.getIsActive());
+            stmt.setString(5, client.getIsActive());
             stmt.setInt(6, client.getId());
             stmt = connection.prepareStatement(sql);
+
             result = stmt.executeUpdate();
 
 
         }catch (SQLException e){
-            System.out.println("An error has occurred ");
+            System.out.println("An error has occurred:" + e);
         }
         return result;
 
@@ -230,16 +239,17 @@ public class ClientRepository {
         int result = 0;
 
         try {
-            String sql = "update clients set client_membership_id  = ? , client_membership_expiration = ? where id = ?";
+            String sql = "UPDATE clients SET client_membership_id  = ? , client_membership_expiration = ? WHERE id = ?";
             stmt.setInt(1, client.getMembershipId());
             stmt.setDate(2, (java.sql.Date) client.getMembershipExpiration());
             stmt.setInt(3, client.getId());
             stmt = connection.prepareStatement(sql);
+
             result = stmt.executeUpdate();
 
 
         }catch (SQLException e){
-            System.out.println("An error has occurred ");
+            System.out.println("An error has occurred:" + e);
         }
         return result;
 
@@ -250,15 +260,16 @@ public class ClientRepository {
         int result = 0;
 
         try {
-            String sql = "update clients set client_user_id  = ?  where id = ?";
+            String sql = "UPDATE clients SET client_user_id  = ?  WHERE id = ?";
             stmt.setInt(1, client.getUserId());
             stmt.setInt(2, client.getId());
             stmt = connection.prepareStatement(sql);
+
             result = stmt.executeUpdate();
 
 
         }catch (SQLException e){
-            System.out.println("An error has occurred ");
+            System.out.println("An error has occurred:" + e);
         }
         return result;
 
@@ -269,13 +280,14 @@ public class ClientRepository {
         int result = 0;
 
         try {
-            String sql = "delete from clients where id = ?";
+            String sql = "DELETE FROM clients WHERE id = ?";
             stmt.setInt(1, client.getId());
             stmt = connection.prepareStatement(sql);
+
             result = stmt.executeUpdate();
 
         }catch (SQLException e){
-            System.out.println("An error has occurred ");
+            System.out.println("An error has occurred:" + e);
         }
         return result;
 

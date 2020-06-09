@@ -12,8 +12,8 @@ public class UsersRepository {
 
     public UsersRepository(){
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            System.out.println("De driver is geregistreerd!");
+            Class.forName("com.mysql.jdbc.Driver");
+//            System.out.println("De driver is geregistreerd!");
 
             String URL = "jdbc:mysql://localhost:3306/afitness_db?autoReconnect=true&useSSL=false";
             String USER = "root";
@@ -35,12 +35,13 @@ public class UsersRepository {
 
         try {
             stmt = connection.createStatement();
-            String sql = "select user.*, role.role_name, role.access_level from users " +
-                    "inner join roles on users.role_id = role.id";
+            String sql = "SELECT users.*, roles.role_name, roles.access_level FROM users " +
+                    "INNER JOIN roles ON users.role_id = roles.id";
+
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                int user_id = rs.getInt("user_id");
+                int user_id = rs.getInt("id");
                 String username = rs.getString("username");
                 String password = rs.getString("password");
                 int role_id = rs.getInt("role_id");
@@ -54,26 +55,25 @@ public class UsersRepository {
             rs.close();
 
         } catch (SQLException e) {
-
-        } finally {
-
+            System.out.println("An error has occurred:" + e);
         }
+
         return userList;
     }
 
-    public User findUserById(int id) {
+    public User findUserByUsername(String usernm) {
         User user = null;
         Role role = null;
         PreparedStatement stmt = null;
 
         try {
-            String sql = "select users.*, roles.role_name, roles.access_level from users " +
-                    "inner join roles on users.role_id = roles.id where users.id = ?";
+            String sql = "SELECT users.*, roles.role_name, roles.access_level FROM users " +
+                    "INNER JOIN roles ON users.role_id = roles.id WHERE users.username = ?";
 
             stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, id);
+            stmt.setString(1, usernm);
 
-            ResultSet rs = stmt.executeQuery(sql);
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 int user_id = rs.getInt("id");
@@ -96,19 +96,19 @@ public class UsersRepository {
 
 
 
-    public int insertOneRecord(User user, Role role) {
+    public int insertOneRecord(User user) {
         PreparedStatement stmt = null;
         int result = 0;
         try {
-            String sql = "insert into users (username , password, role_id) values(? , ?, ?)";
+            String sql = "INSERT INTO users (username , password, role_id) VALUES(? , ?, ?)";
             stmt = connection.prepareStatement(sql);
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getPassword());
-            stmt.setInt(3, role.getRoleId());
+            stmt.setInt(3, user.getRoleId());
             result = stmt.executeUpdate();
 
         } catch (SQLException e) {
-
+            System.out.println("An error has occurred:" + e);
         }
 
         return result;
@@ -125,15 +125,16 @@ public class UsersRepository {
             System.out.println("deleted: " + user.getUserId());
 
         } catch (SQLException e) {
-
+            System.out.println("An error has occurred:" + e);
         }
+
         return result;
     }
     public int updateUserRecord(User user) {
         PreparedStatement stmt = null;
         int result = 0;
         try {
-            String sql = "update users set username = ? password = ? where id = ?";
+            String sql = "UPDATE users SET username = ? password = ? WHERE id = ?";
             stmt = connection.prepareStatement(sql);
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getPassword());
@@ -141,10 +142,9 @@ public class UsersRepository {
             result = stmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("An error has occurred ");
-        } finally {
-
+            System.out.println("An error has occurred:" + e);
         }
+
         return result;
     }
 

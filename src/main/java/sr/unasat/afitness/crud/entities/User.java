@@ -18,6 +18,9 @@ public class User {
     public String getUsername() { return username; }
     public String getPassword() { return password; }
     public Role getRole() { return role; }
+    public int getRoleId() {
+        return this.role.role_id;
+    }
 
     public void setUserId(int user_id) { this.user_id = user_id; }
     public void setUsername(String username) { this.username = username; }
