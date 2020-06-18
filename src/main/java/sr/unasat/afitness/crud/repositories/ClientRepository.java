@@ -216,13 +216,13 @@ public class ClientRepository {
             String sql = "UPDATE clients SET " +
                         "client_name  = ? , client_surname = ?, client_phonenumber = ?, client_date_of_birth = ? , " +
                         "client_is_active= ? WHERE id = ?";
+            stmt = connection.prepareStatement(sql);
             stmt.setString(1, client.getName());
             stmt.setString(2, client.getSurname());
             stmt.setString(3, client.getPhoneNumber());
             stmt.setDate(4, (java.sql.Date) client.getDOB());
             stmt.setString(5, client.getIsActive());
             stmt.setInt(6, client.getId());
-            stmt = connection.prepareStatement(sql);
 
             result = stmt.executeUpdate();
 
@@ -240,10 +240,10 @@ public class ClientRepository {
 
         try {
             String sql = "UPDATE clients SET client_membership_id  = ? , client_membership_expiration = ? WHERE id = ?";
+            stmt = connection.prepareStatement(sql);
             stmt.setInt(1, client.getMembershipId());
             stmt.setDate(2, (java.sql.Date) client.getMembershipExpiration());
             stmt.setInt(3, client.getId());
-            stmt = connection.prepareStatement(sql);
 
             result = stmt.executeUpdate();
 
@@ -261,9 +261,9 @@ public class ClientRepository {
 
         try {
             String sql = "UPDATE clients SET client_user_id  = ?  WHERE id = ?";
+            stmt = connection.prepareStatement(sql);
             stmt.setInt(1, client.getUserId());
             stmt.setInt(2, client.getId());
-            stmt = connection.prepareStatement(sql);
 
             result = stmt.executeUpdate();
 
@@ -281,9 +281,9 @@ public class ClientRepository {
 
         try {
             String sql = "DELETE FROM clients WHERE id = ?";
-            stmt.setInt(1, client.getId());
             stmt = connection.prepareStatement(sql);
 
+            stmt.setInt(1, client.getId());
             result = stmt.executeUpdate();
 
         }catch (SQLException e){
