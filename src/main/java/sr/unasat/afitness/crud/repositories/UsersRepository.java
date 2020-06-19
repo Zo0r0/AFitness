@@ -114,23 +114,7 @@ public class UsersRepository {
         return result;
     }
 
-    public int deleteOneRecord(User user){
-        PreparedStatement stmt = null;
-        int result = 0;
-        try {
-            String sql = "DELETE FROM users WHERE id = ?";
-            stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, user.getUserId());
-            result = stmt.executeUpdate();
-            System.out.println("deleted: " + user.getUserId());
-
-        } catch (SQLException e) {
-            System.out.println("An error has occurred:" + e);
-        }
-
-        return result;
-    }
-    public int updateUserRecord(User user) {
+    public void updateUserRecord(User user) {
         PreparedStatement stmt = null;
         int result = 0;
         try {
@@ -145,7 +129,31 @@ public class UsersRepository {
             System.out.println("An error has occurred:" + e);
         }
 
-        return result;
+        if (result == 0) {
+            System.out.println("Something went wrong!");
+        } else {
+            System.out.println("Record with id: " + user.getUserId() + "was updated successfully!");
+        }
+    }
+
+    public void deleteOneRecord(int id){
+        PreparedStatement stmt = null;
+        int result = 0;
+        try {
+            String sql = "DELETE FROM users WHERE id = ?";
+            stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, id);
+            result = stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("An error has occurred:" + e);
+        }
+
+        if (result == 0) {
+            System.out.println("Something went wrong!");
+        } else {
+            System.out.println("Record with id: " + id + "was deleted successfully!");
+        }
     }
 
 

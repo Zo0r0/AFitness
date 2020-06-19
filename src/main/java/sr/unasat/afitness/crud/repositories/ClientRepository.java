@@ -74,6 +74,7 @@ public class ClientRepository {
                 String name = rs.getString("name");
                 String surname = rs.getString("surname");
                 String phonenumber = rs.getString("phonenumber");
+                String address = rs.getString("address");
                 Date date_of_birth = rs.getDate("date_of_birth");
                 String is_active = rs.getString("is_active");
 
@@ -96,7 +97,7 @@ public class ClientRepository {
                 roleList.add(role);
                 userList.add(user);
                 membershipList.add(membership);
-                clientList.add(new Client(client_id, name, surname, phonenumber,
+                clientList.add(new Client(client_id, name, surname, phonenumber, address,
                         date_of_birth, is_active, membership, membership_expiration, user));
             }
             rs.close();
@@ -152,6 +153,7 @@ public class ClientRepository {
                 String name = rs.getString("name");
                 String surname = rs.getString("surname");
                 String phonenumber = rs.getString("phonenumber");
+                String address = rs.getString("address");
                 Date date_of_birth = rs.getDate("date_of_birth");
                 String is_active = rs.getString("is_active");
 
@@ -171,7 +173,7 @@ public class ClientRepository {
                 role = new Role(role_id, role_name, access_level);
                 user = new User(user_id, username, password, role);
 
-                client = new Client(client_id, name, surname, phonenumber, date_of_birth, is_active, membership, membership_expiration, user);
+                client = new Client(client_id, name, surname, phonenumber, address,date_of_birth, is_active, membership, membership_expiration, user);
             }
             rs.close();
 
@@ -181,22 +183,23 @@ public class ClientRepository {
         return client;
     }
 
-    public int insertClientRecord(Client client) {
+    public void insertClientRecord(Client client) {
         PreparedStatement stmt = null;
         int result = 0;
 
         try{
-            String sql = "INSERT INTO clients(client_name, client_surname,client_phonenumber, client_date_of_birth, " +
-                    "client_is_active, client_membership_id ,client_membership_expiration, client_user_id) VALUES(?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO clients(client_name, client_surname,client_phonenumber, client_address, client_date_of_birth, " +
+                    "client_is_active, client_membership_id ,client_membership_expiration, client_user_id) VALUES(?,?,?,?,?,?,?,?,?)";
             stmt = connection.prepareStatement(sql);
             stmt.setString(1, client.getName());
             stmt.setString(2, client.getSurname());
             stmt.setString(3, client.getPhoneNumber());
-            stmt.setDate(4, (java.sql.Date) client.getDOB());
-            stmt.setString(5, client.getIsActive());
-            stmt.setInt(6, client.getMembershipId());
-            stmt.setDate(7, (java.sql.Date) client.getMembershipExpiration());
-            stmt.setInt(8, client.getUserId());
+            stmt.setString(4, client.getAddress());
+            stmt.setDate(5, client.getDOB());
+            stmt.setString(6, client.getIsActive());
+            stmt.setInt(7, client.getMembershipId());
+            stmt.setDate(8, client.getMembershipExpiration());
+            stmt.setInt(9, client.getUserId());
 
             result = stmt.executeUpdate();
 
@@ -204,25 +207,33 @@ public class ClientRepository {
             System.out.println("An error has occurred:" + e);
         }
 
-        return result;
+        if (result == 0) {
+            System.out.println("Something went wrong!");
+        } else {
+            System.out.println("Record was added successfully!");
+        }
 
     }
 
-    public int updateClientById(Client client) {
+    public void updateClientById(Client client) {
         PreparedStatement stmt = null;
         int result = 0;
 
         try {
             String sql = "UPDATE clients SET " +
-                        "client_name  = ? , client_surname = ?, client_phonenumber = ?, client_date_of_birth = ? , " +
-                        "client_is_active= ? WHERE id = ?";
+                        "client_name  = ? , client_surname = ?, client_phonenumber = ?, client_address= ?, client_date_of_birth = ? , " +
+                        "client_is_active= ?, client_membership_id  = ? , client_membership_expiration = ?, client_user_id  = ? WHERE id = ?";
             stmt = connection.prepareStatement(sql);
             stmt.setString(1, client.getName());
             stmt.setString(2, client.getSurname());
             stmt.setString(3, client.getPhoneNumber());
-            stmt.setDate(4, (java.sql.Date) client.getDOB());
-            stmt.setString(5, client.getIsActive());
-            stmt.setInt(6, client.getId());
+            stmt.setString(4, client.getAddress());
+            stmt.setDate(5, client.getDOB());
+            stmt.setString(6, client.getIsActive());
+            stmt.setInt(7, client.getMembershipId());
+            stmt.setDate(8, client.getMembershipExpiration());
+            stmt.setInt(9, client.getUserId());
+            stmt.setInt(10, client.getId());
 
             result = stmt.executeUpdate();
 
@@ -230,52 +241,16 @@ public class ClientRepository {
         }catch (SQLException e){
             System.out.println("An error has occurred:" + e);
         }
-        return result;
 
-    }
-
-    public int updateClientMembership(Client client) {
-        PreparedStatement stmt = null;
-        int result = 0;
-
-        try {
-            String sql = "UPDATE clients SET client_membership_id  = ? , client_membership_expiration = ? WHERE id = ?";
-            stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, client.getMembershipId());
-            stmt.setDate(2, (java.sql.Date) client.getMembershipExpiration());
-            stmt.setInt(3, client.getId());
-
-            result = stmt.executeUpdate();
-
-
-        }catch (SQLException e){
-            System.out.println("An error has occurred:" + e);
+        if (result == 0) {
+            System.out.println("Something went wrong!");
+        } else {
+            System.out.println("Record with id: " + client.getId()+ " was updated successfully!");
         }
-        return result;
 
     }
 
-    public int updateClientUser(Client client) {
-        PreparedStatement stmt = null;
-        int result = 0;
-
-        try {
-            String sql = "UPDATE clients SET client_user_id  = ?  WHERE id = ?";
-            stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, client.getUserId());
-            stmt.setInt(2, client.getId());
-
-            result = stmt.executeUpdate();
-
-
-        }catch (SQLException e){
-            System.out.println("An error has occurred:" + e);
-        }
-        return result;
-
-    }
-
-    public int deleteClientById(Client client) {
+    public void deleteClientById(int id) {
         PreparedStatement stmt = null;
         int result = 0;
 
@@ -283,13 +258,18 @@ public class ClientRepository {
             String sql = "DELETE FROM clients WHERE id = ?";
             stmt = connection.prepareStatement(sql);
 
-            stmt.setInt(1, client.getId());
+            stmt.setInt(1, id);
             result = stmt.executeUpdate();
 
         }catch (SQLException e){
             System.out.println("An error has occurred:" + e);
         }
-        return result;
+
+        if (result == 0) {
+            System.out.println("Something went wrong!");
+        } else {
+            System.out.println("Record with id: " + id + " was deleted successfully!");
+        }
 
     }
 

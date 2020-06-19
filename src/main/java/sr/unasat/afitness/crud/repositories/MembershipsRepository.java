@@ -72,7 +72,7 @@ public class MembershipsRepository {
         return membership;
     }
 
-    public int insertMembershipRecord(Membership membership) {
+    public void insertMembershipRecord(Membership membership) {
         PreparedStatement stmt = null;
         int result = 0;
         try {
@@ -87,10 +87,14 @@ public class MembershipsRepository {
             System.out.println("An error has occurred:" + e);
         }
 
-        return result;
+        if (result == 0) {
+            System.out.println("Something went wrong!");
+        } else {
+            System.out.println("Record was added successfully!");
+        }
     }
 
-    public int updateMembershipRecord(Membership membership) {
+    public void updateMembershipRecord(Membership membership) {
         PreparedStatement stmt = null;
         int result = 0;
         try {
@@ -106,23 +110,32 @@ public class MembershipsRepository {
             System.out.println("An error has occurred:" + e);
         }
 
-        return result;
+        if (result == 0) {
+            System.out.println("Something went wrong!");
+        } else {
+            System.out.println("Record with id: " + membership.getId()+ "was updated successfully!");
+        }
     }
 
-    public int deleteMembershipRecord(Membership membership){
+    public void deleteMembershipRecord(int id){
         PreparedStatement stmt = null;
         int result = 0;
         try {
             String sql = "DELETE FROM memberships WHERE id = ?";
             stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, membership.getId());
+            stmt.setInt(1, id);
 
             result = stmt.executeUpdate();
 
         } catch (SQLException e) {
             System.out.println("An error has occurred:" + e);
         }
-        return result;
+
+        if (result == 0) {
+            System.out.println("Something went wrong!");
+        } else {
+            System.out.println("Record with id: " + id+ "was deleted successfully!");
+        }
     }
 
 

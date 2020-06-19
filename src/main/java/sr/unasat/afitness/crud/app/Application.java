@@ -21,23 +21,36 @@ public class Application {
         ClientRepository clientRepo = new ClientRepository();
         UsersRepository userRepo = new UsersRepository();
 
-//        Client client = clientRepo.getClientById(3);
-//        System.out.println(client.getId());
-//        System.out.println(clientRepo.deleteClientById(client));
-
-//        Membership membership = memberRepo.getMembershipById(2);
-//        Role role = roleRepo.getRoleById(5);
-//
-//        User user = new User(0, "mnarain", "lUk3sF@thEr", role);
-//        int resultUser = userRepo.insertOneRecord(user);
-//        User mnarain = userRepo.findUserByUsername("mnarain");
-//
-//        Client client = new Client(0, "Maarten", "Narain", "8684665", Date.valueOf("1975-05-15"), "T", membership, Date.valueOf("2021-06-01"),  mnarain );
-//
-//        int resultClient = clientRepo.insertClientRecord(client);
+        List<User> users = userRepo.findAllRecords();
+        List<Role> roles = roleRepo.findAllRecords();
+        List<Membership> memberships = memberRepo.getAllRecords();
 
 
+//      INSERT NEW RECORD INTO T3 TABEL
+        Client client = new Client(0, "Maarten", "Narain", "8684665", "Kersenstraat 41", Date.valueOf("1975-05-15"), "T",
+                memberships.get(2), Date.valueOf("2021-06-01"), users.get(1) );
+        clientRepo.insertClientRecord(client);
 
+//      INSERT NEW USER
+        Role role = roles.get(4);
+        User user = new User(0, "mnarain", "lUk3sF@thEr", role);
+        userRepo.insertOneRecord(user);
+
+        User UserNarain = userRepo.findUserByUsername("mnarain");
+
+//      SELECT + UPDATE T3
+        Client clientNarain = clientRepo.getClientById(5);
+        clientNarain.setMembership(memberships.get(1));
+        clientNarain.setUser(UserNarain);
+
+        clientRepo.updateClientById(clientNarain);
+
+//      DELETE FROM T3
+        clientRepo.deleteClientById(3);
+
+//      SELECT ALL FROM T3
+        List<Client> clients = clientRepo.getAllRecords();
+        System.out.println(clients);
     }
 
 

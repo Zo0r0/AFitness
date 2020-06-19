@@ -7,17 +7,19 @@ public class Client {
     public String name;
     public String surname;
     public String phonenumber;
+    public String address;
     public Date date_of_birth;
     public String is_active;
     public Membership membership;
     public Date membership_expiration;
     public User user;
 
-    public Client(int id, String name, String surname, String phonenumber, Date date_of_birth, String is_active, Membership membership, Date membership_expiration, User user) {
+    public Client(int id, String name, String surname, String phonenumber,String address, Date date_of_birth, String is_active, Membership membership, Date membership_expiration, User user) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.phonenumber = phonenumber;
+        this.address = address;
         this.date_of_birth = date_of_birth;
         this.is_active = is_active;
         this.membership = membership;
@@ -55,6 +57,14 @@ public class Client {
 
     public void setPhoneNumber(String phonenumber) {
         this.phonenumber = phonenumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Date getDOB() {

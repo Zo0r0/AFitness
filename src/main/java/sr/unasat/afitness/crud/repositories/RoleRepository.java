@@ -96,7 +96,7 @@ public class RoleRepository {
         return role ;
     }
 
-    public int updateOneRecord(Role role) {
+    public void updateOneRecord(Role role) {
         PreparedStatement stmt = null;
         int result = 0;
 
@@ -113,10 +113,15 @@ public class RoleRepository {
         } catch (SQLException e) {
             System.out.println("An error has occurred:" + e);
         }
-        return result;
+
+        if (result == 0) {
+            System.out.println("Something went wrong!");
+        } else {
+            System.out.println("Record with id: " + role.getRoleId() + "was updated successfully!");
+        }
     }
 
-    public int deleteOneRecord (Role role) {
+    public void deleteOneRecord (int id) {
         PreparedStatement stmt = null;
         int result = 0;
 
@@ -124,14 +129,19 @@ public class RoleRepository {
             String sql = " DELETE FROM roles WHERE id=?";
             stmt = connection.prepareStatement(sql);
 
-            stmt.setInt(1, role.getRoleId());
+            stmt.setInt(1, id);
             result = stmt.executeUpdate();
         }
 
         catch(SQLException e){
             System.out.println("An error has occurred:" + e);
         }
-        return result;
+
+        if (result == 0) {
+            System.out.println("Something went wrong!");
+        } else {
+            System.out.println("Record with id: " + id+ "was deleted successfully!");
+        }
     }
 
 }
